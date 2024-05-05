@@ -5,45 +5,30 @@
 
 namespace pde
 {
-real lerp(interval i, real t)
-{
-    return (i.b - i.a) * t + i.a;
-}
 
-real abs(real x)
-{
-    return (x >= 0) ? x : -x;
-}
+/*
+ * Linear interpolation
+ */
+real lerp(interval i, real t);
 
-vector eval(interval domain, function f, real delta)
-{
-    size_t len = (size_t)abs((domain.b - domain.a) / delta);
-    vector res(len);
+/*
+ * Absolute value
+ */
+real abs(real x);
 
-    for (size_t i = 0; i < len; ++i) {
-        res[i] = f(lerp(domain, (real)i / len));
-    }
+/*
+ * Evaluates function f at domain with step delta
+ */
+vector eval(interval domain, function f, real delta);
 
-    return res;
-}
+/*
+ * Creates vector filld with zeros
+ */
+vector zeros(size_t len);
 
-vector zeros(size_t len)
-{
-    vector res(len);
-    for (size_t i = 0; i < len; ++i) {
-        res[i] = 0.0;
-    }
-    return res;
-}
-
-vector linspace(interval domain, real delta)
-{
-    size_t len = (size_t)abs((domain.b - domain.a) / delta);
-    vector res(len);
-    for (size_t i = 0; i < len; ++i) {
-        res[i] = lerp(domain, (real)i / len);
-    }
-    return res;
-}
+/*
+ * Creates vector with evenly spaced numbers
+ */
+vector linspace(interval domain, real delta);
 
 } // namespace pde
