@@ -1,6 +1,7 @@
 #pragma once
 
-#include <concepts>
+#include <iomanip>
+#include <iostream>
 
 #include "allocator.hpp"
 #include "defines.hpp"
@@ -10,29 +11,29 @@ namespace pde
 {
 
 template <class T, class Allocator = allocator<T>>
-class vector
+class arbitrary_vector
 {
 public:
-    explicit vector(size_t size)
+    explicit arbitrary_vector(size_t size)
         : size_(size)
         , data_(reinterpret_cast<T*>(Allocator::allocate(sizeof(T) * size_)))
     {
     }
 
-    vector()
+    arbitrary_vector()
         : size_(0)
         , data_(nullptr)
     {
     }
 
-    vector(const vector& other)
+    arbitrary_vector(const arbitrary_vector& other)
         : size_(other.size_)
         , data_(reinterpret_cast<T*>(Allocator::allocate(sizeof(T) * size_)))
     {
         memcpy(data_, other.data_, sizeof(T) * size_);
     }
 
-    vector(vector&& other)
+    arbitrary_vector(arbitrary_vector&& other)
         : size_(other.size_)
         , data_(other.data_)
     {
@@ -40,7 +41,7 @@ public:
         other.data_ = nullptr;
     }
 
-    vector(std::initializer_list<T> l)
+    arbitrary_vector(std::initializer_list<T> l)
         : size_(l.size())
         , data_(reinterpret_cast<T*>(Allocator::allocate(sizeof(T) * size_)))
     {
@@ -51,7 +52,7 @@ public:
         }
     }
 
-    friend bool operator==(const vector& a, const vector& b)
+    friend bool operator==(const arbitrary_vector& a, const arbitrary_vector& b)
     {
         if (a.size() != b.size()) {
             return false;
@@ -64,6 +65,12 @@ public:
         }
 
         return true;
+    }
+
+    friend void swap(arbitrary_vector& a, arbitrary_vector& b)
+    {
+        std::swap(a.size_, b.size_);
+        std::swap(a.data_, b.data_);
     }
 
     const T& operator[](size_t i) const
@@ -93,14 +100,25 @@ public:
         return data_;
     }
 
-    ~vector()
+    ~arbitrary_vector()
     {
         Allocator::deallocate(data_, size_);
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream, const arbitrary_vector& a)
+    {
+        for (size_t i = 0; i < a.size() - 1; ++i) {
+            stream << a[i] << " ";
+        }
+        stream << a[a.size() - 1] << "\n";
+        return stream;
     }
 
 private:
     size_t size_{0};
     T* data_{nullptr};
 };
+
+using vector = arbitrary_vector<real>;
 
 } // namespace pde

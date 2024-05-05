@@ -5,10 +5,11 @@
 * Setup
 * * Buld system - Done
 * * Basic infra - Done
-* * I/O
+* * I/O - Almost
 * * Plotting
 * Main part
-* * Algorithm impl
+* * Utility functions - Done
+* * Algorithm impl - Done
 * * Testing and CI
 * Paper
 * Method extention
