@@ -1,5 +1,8 @@
 # PDE Solvers
 
+We have:
+* Courant-Isaacson-Rees solver
+
 ## Plan
 
 * Setup
