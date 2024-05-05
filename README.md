@@ -1,5 +1,9 @@
 # PDE Solvers
 
+![Plot](pics/pic.png "Plot")
+
+## Solvers
+
 We have:
 * Courant-Isaacson-Rees solver
 
