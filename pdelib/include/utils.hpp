@@ -36,4 +36,14 @@ vector zeros(size_t len)
     return res;
 }
 
+vector linspace(interval domain, real delta)
+{
+    size_t len = (size_t)abs((domain.b - domain.a) / delta);
+    vector res(len);
+    for (size_t i = 0; i < len; ++i) {
+        res[i] = lerp(domain, (real)i / len);
+    }
+    return res;
+}
+
 } // namespace pde

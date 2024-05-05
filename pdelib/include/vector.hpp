@@ -108,9 +108,9 @@ public:
     friend std::ostream& operator<<(std::ostream& stream, const arbitrary_vector& a)
     {
         for (size_t i = 0; i < a.size() - 1; ++i) {
-            stream << a[i] << " ";
+            stream << std::setw(7) << std::setprecision(4) << a[i] << " ";
         }
-        stream << a[a.size() - 1] << "\n";
+        stream << std::setw(7) << std::setprecision(4) << a[a.size() - 1] << "\n";
         return stream;
     }
 
