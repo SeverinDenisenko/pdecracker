@@ -13,6 +13,11 @@ real inline cfl(real a, real dt, real dx)
     return a * dt / dx;
 }
 
+real inline dt(real a, real cfl, real dx)
+{
+    return cfl * dx / a;
+}
+
 // 1D-advection equation parameters
 struct advection {
     real dx;
@@ -29,12 +34,12 @@ class cir
 public:
     cir(advection eq);
 
-    vector solve();
+    vector solve(real t);
 
 private:
-    void positive();
+    void positive(real t);
 
-    void nagative();
+    void nagative(real t);
 
 private:
     real dx_;

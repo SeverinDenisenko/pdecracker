@@ -1,6 +1,8 @@
 # PDE Solvers
 
-![Plot](pics/pic.png "Plot")
+![Plot](pics/c.png "Courant–Friedrichs–Lewy condition")
+![Plot](pics/n.png "Number of nodes in grid")
+![Plot](pics/t.png "Time plot")
 
 ## Solvers
 

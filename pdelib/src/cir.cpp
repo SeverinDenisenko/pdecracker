@@ -14,40 +14,40 @@ cir::cir(advection eq)
 {
 }
 
-vector cir::solve()
+vector cir::solve(real t)
 {
     if (a_ > 0.0) {
-        positive();
+        positive(t);
     } else {
-        nagative();
+        nagative(t);
     }
 
     return u0_;
 }
 
-void cir::positive()
+void cir::positive(real t)
 {
-    size_t n = (size_t)abs(t_.len() / dt_);
+    size_t n = (size_t)abs((t - t_.a) / dt_);
 
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 1; j < u_.size(); ++j) {
             u_[j] = u0_[j] - cfl_ * (u0_[j] - u0_[j - 1]);
         }
-        u_[0] = u0_[n - 1];
+        u_[0] = u0_[u_.size() - 1];
 
         swap(u_, u0_);
     }
 }
 
-void cir::nagative()
+void cir::nagative(real t)
 {
-    size_t n = (size_t)abs(t_.len() / dt_);
+    size_t n = (size_t)abs((t - t_.a) / dt_);
 
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 0; j < u_.size() - 1; ++j) {
             u_[j] = u0_[j] - cfl_ * (u0_[j + 1] - u0_[j]);
         }
-        u_[n - 1] = u0_[0];
+        u_[u_.size() - 1] = u0_[0];
 
         swap(u_, u0_);
     }
