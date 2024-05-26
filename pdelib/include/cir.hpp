@@ -10,12 +10,12 @@ namespace pde
 // Courant–Friedrichs–Lewy condition
 real inline cfl(real a, real dt, real dx)
 {
-    return a * dt / dx;
+    return std::abs(a * dt / dx);
 }
 
 real inline dt(real a, real cfl, real dx)
 {
-    return cfl * dx / a;
+    return std::abs(cfl * dx / a);
 }
 
 // 1D-advection equation parameters

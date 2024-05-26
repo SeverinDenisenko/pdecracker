@@ -45,7 +45,7 @@ void cir::nagative(real t)
 
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 0; j < u_.size() - 1; ++j) {
-            u_[j] = u0_[j] - cfl_ * (u0_[j + 1] - u0_[j]);
+            u_[j] = u0_[j] - cfl_ * (u0_[j] - u0_[j + 1]);
         }
         u_[u_.size() - 1] = u0_[0];
 
